@@ -1,29 +1,8 @@
-/* Este archivo debe estar colocado en la carpeta raíz del sitio.
- * 
- * Cualquier cambio en el contenido de este archivo hace que el service
- * worker se reinstale. */
+/* Este archivo debe estar colocado en la carpeta raíz del sitio. */
 
-/**
- * Cambia el número de la versión cuando cambia el contenido de los
- * archivos.
- * 
- * El número a la izquierda del punto (.), en este caso <q>1</q>, se
- * conoce como número mayor y se cambia cuando se realizan
- * modificaciones grandes o importantes.
- * 
- * El número a la derecha del punto (.), en este caso <q>00</q>, se
- * conoce como número menor y se cambia cuando se realizan
- * modificaciones menores.
- */
-const VERSION = "1.12"
+const VERSION = "1.13"
+const CACHE = "Ganttasticos-v1.12"
 
-/** Nombre del archivo de cache. */
-const CACHE = "ejemploPWA"
-
-/**
- * Archivos requeridos para que la aplicación funcione fuera de
- * línea.
- */
 const ARCHIVOS = [
  "favicon.ico",
  "index.html",
@@ -60,56 +39,34 @@ const ARCHIVOS = [
  "/"
 ]
 
-// Verifica si el código corre dentro de un service worker.
 if (self instanceof ServiceWorkerGlobalScope) {
- // Evento al empezar a instalar el servide worker,
- self.addEventListener("install",
-  (/** @type {ExtendableEvent} */ evt) => {
-   console.log("El service ganttastico se está instalando.")
-   evt.waitUntil(llenaElCache())
-  })
+ self.addEventListener("install", (evt) => {
+   console.log("El service ganttastico se está instalando.");
+   evt.waitUntil(llenaElCache());
+ });
 
- // Evento al solicitar información a la red.
- self.addEventListener("fetch", (/** @type {FetchEvent} */ evt) => {
+ self.addEventListener("fetch", (evt) => {
   if (evt.request.method === "GET") {
-   evt.respondWith(buscaLaRespuestaEnElCache(evt))
+   evt.respondWith(buscaLaRespuestaEnElCache(evt));
   }
- })
+ });
 
- // Evento cuando el service worker se vuelve activo.
- self.addEventListener("activate",
-  () => console.log("El service ganttastico está activo."))
+ self.addEventListener("activate", () => {
+   console.log("El service ganttastico está activo.");
+ });
 }
 
 async function llenaElCache() {
- console.log("Intentando cargar caché:", CACHE)
- // Borra todos los cachés.
- const keys = await caches.keys()
+ const keys = await caches.keys();
  for (const key of keys) {
-  await caches.delete(key)
+  await caches.delete(key);
  }
- // Abre el caché de este service worker.
- const cache = await caches.open(CACHE)
- // Carga el listado de ARCHIVOS.
- await cache.addAll(ARCHIVOS)
- console.log("Cache cargado:", CACHE)
- console.log("Versión:", VERSION)
+ const cache = await caches.open(CACHE);
+ await cache.addAll(ARCHIVOS);
 }
 
-/** @param {FetchEvent} evt */
 async function buscaLaRespuestaEnElCache(evt) {
- // Abre el caché.
- const cache = await caches.open(CACHE)
- const request = evt.request
- /* Busca la respuesta a la solicitud en el contenido del caché, sin
-  * tomar en cuenta la parte después del símbolo "?" en la URL. */
- const response = await cache.match(request, { ignoreSearch: true })
- if (response === undefined) {
-  /* Si no la encuentra, empieza a descargar de la red y devuelve
-   * la promesa. */
-  return fetch(request)
- } else {
-  // Si la encuentra, devuelve la respuesta encontrada en el caché.
-  return response
- }
+ const cache = await caches.open(CACHE);
+ const response = await cache.match(evt.request, { ignoreSearch: true });
+ return response || fetch(evt.request);
 }
