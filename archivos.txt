@@ -29,4 +29,4 @@
  "img/sync.png",
  "img/Vanne.png",
  "img/web.png",
- "js/registraServiceWorker.js",
+ "js/lib/registraServiceWorker.js",
