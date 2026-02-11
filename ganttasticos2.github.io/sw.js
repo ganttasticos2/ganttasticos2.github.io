@@ -1,7 +1,7 @@
 /* Este archivo debe estar colocado en la carpeta raíz del sitio. */
 
-const VERSION = "1.46"
-const CACHE = "Ganttasticos-v1.44" // Cambié esto para forzar actualización
+const VERSION = "1.47"
+const CACHE = "Ganttasticos-v1.47" // Nueva versión para forzar limpieza
 
 const ARCHIVOS = [
   "favicon.ico",
@@ -25,11 +25,10 @@ const ARCHIVOS = [
   "img/Vanne.png",
   "img/web.png",
   "img/Movil.png",
-  "img/oficina.png",
-
-  "img/Escritorio.png", // Quité oficina.png porque da error 404
+  "img/oficina.png", // La mantenemos para intentar cargarla
+  "img/Escritorio.png",
   "js/lib/registraServiceWorker.js",
-  "./" // Es mejor usar ./ para la raíz
+  "./" 
 ];
 
 if (self instanceof ServiceWorkerGlobalScope) {
@@ -46,19 +45,36 @@ if (self instanceof ServiceWorkerGlobalScope) {
 
   self.addEventListener("activate", (evt) => {
     console.log("Service Worker activo v:", VERSION);
-    // Forzar a que el nuevo SW tome el control inmediatamente
+    // Eliminar cachés antiguos
+    evt.waitUntil(
+      caches.keys().then((keys) => {
+        return Promise.all(
+          keys.filter((key) => key !== CACHE).map((key) => caches.delete(key))
+        );
+      })
+    );
     evt.waitUntil(self.clients.claim());
   });
 }
 
+// ESTA FUNCIÓN ES LA QUE SOLUCIONA TU PROBLEMA
 async function llenaElCache() {
   const cache = await caches.open(CACHE);
-  try {
-    await cache.addAll(ARCHIVOS);
-    console.log("Caché cargado con éxito");
-  } catch (error) {
-    console.error("Fallo al cargar caché (revisa si algún archivo falta):", error);
-  }
+  console.log("Intentando cargar archivos individualmente...");
+  
+  // En lugar de addAll, usamos promesas individuales
+  const promesas = ARCHIVOS.map(async (url) => {
+    try {
+      const respuesta = await fetch(url);
+      if (!respuesta.ok) throw new Error(`Fallo al buscar ${url}`);
+      await cache.put(url, respuesta);
+    } catch (error) {
+      console.warn("No se pudo guardar en caché (se saltará):", url);
+    }
+  });
+
+  await Promise.all(promesas);
+  console.log("Caché cargado (archivos faltantes fueron ignorados)");
 }
 
 async function buscaLaRespuestaEnElCache(evt) {
