@@ -17,38 +17,22 @@
       "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "maskable"
-    },
-    { "src": "img/pwa.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/analisis.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/BALTA.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/FRENTEGANT.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/gyn.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/HECTOR.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/ITATI.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/iu.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/MENDIETA.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/oficina.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/PSICO.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/psicologos.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/ROBER.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/sync.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/Vanne.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "img/web.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    }
   ],
   "screenshots": [
     {
       "src": "img/Escritorio.png",
-      "sizes": "1920x1080",
+      "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Ganttasticos Desktop"
+      "label": "Vista de Escritorio"
     },
     {
       "src": "img/Movil.png",
-      "sizes": "1080x1920",
+      "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Ganttasticos Mobile"
+      "label": "Vista de Celular"
     }
   ]
 }
