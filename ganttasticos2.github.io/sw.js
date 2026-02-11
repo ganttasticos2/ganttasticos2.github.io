@@ -1,6 +1,6 @@
 /* Este archivo debe estar colocado en la carpeta raíz del sitio. */
 
-const VERSION = "1.30"
+const VERSION = "1.31"
 const CACHE = "Ganttasticos-v1.12"
 
 const ARCHIVOS = [
@@ -24,6 +24,8 @@ const ARCHIVOS = [
   "img/sync.png",
   "img/Vanne.png",
   "img/web.png",
+  "img/Movil.png",
+  "img/Escritorio.png",
   "js/lib/registraServiceWorker.js",
   "/"
 ];

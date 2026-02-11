@@ -37,18 +37,18 @@
   ],
   "screenshots": [
     {
-      "src": "img/oficina.png",
-      "sizes": "1024x768",
+      "src": "img/Escritorio.png",
+      "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Escritorio"
+      "label": "Pantalla de Inicio"
     },
     {
-      "src": "img/oficina.png",
-      "sizes": "768x1024",
+      "src": "img/Movil.png",
+      "sizes": "720x1280",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Móvil"
+      "label": "Vista móvil"
     }
   ]
 }
