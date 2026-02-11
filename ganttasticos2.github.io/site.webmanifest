@@ -22,18 +22,17 @@
   "screenshots": [
     {
       "src": "img/Escritorio.png",
-      "sizes": "1280x720",
+      "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Escritorio"
+      "label": "Vista de Escritorio"
     },
     {
       "src": "img/Movil.png",
-      "sizes": "750x1334",
+      "sizes": "1080x1920",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Movil"
+      "label": "Vista de Celular"
     }
   ]
-  
 }
